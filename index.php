@@ -2,4 +2,4 @@
 
 echo "tes";
 
-?>
+echo "oke";
