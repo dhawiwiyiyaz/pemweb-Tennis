@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>Sign Up</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <style>
         body {
@@ -297,10 +298,10 @@
                     <div class="rectangle-1" id="rectangle-1"></div>
                     <a href="#rectangle-1">
                         <div class="rectangle-9">
-                            <a href="macbook-1.html">Login</a>
+                            <a href="login.php">Login</a>
                         </div>
                         <div class="rectangle-8">
-                            <a href="macbook-3.html">Sign Up</a>
+                            <a href="#">Sign Up</a>
                         </div>
 
                         <img class="pngimg-1 pngimg" src="img/pngimg-1.png" alt="pngimg 1" />
