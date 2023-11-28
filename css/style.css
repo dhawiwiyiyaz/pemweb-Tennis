@@ -1,6 +1,12 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
 @import url("https://fonts.googleapis.com/css?family=Krona+One:400|Jockey+One:400|Inter:400|Oleo+Script:400|Open+Sans:400");
 
+@font-face {
+  font-family: "Abhaya Libre SemiBold-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/AbhayaLibre-SemiBold.ttf") format("truetype");
+}
 
 
 .screen a {
@@ -21,69 +27,66 @@
   pointer-events: auto;
 }
 
-.overlay-base {
-  display: none;
-  height: 100%;
+.auto-animated div {
+  --z-index: -1;
   opacity: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
+  position: absolute;
 }
 
-.overlay-base.animate-appear {
-  align-items: center;
-  animation: reveal 0.3s ease-in-out 1 normal forwards;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.auto-animated input {
+  --z-index: -1;
   opacity: 0;
+  position: absolute;
 }
 
-.overlay-base.animate-disappear {
-  animation: reveal 0.3s ease-in-out 1 reverse forwards;
-  display: block;
+.auto-animated .container-center-vertical,
+.auto-animated .container-center-horizontal {
   opacity: 1;
-  pointer-events: none;
 }
 
-.overlay-base.animate-disappear * {
-  pointer-events: none;
+.listeners-active,
+.listeners-active * {
+  pointer-events: auto;
 }
 
-@keyframes reveal {
-  from {
-    opacity: 0;
-  }
+.hidden,
+.hidden * {
+  pointer-events: none;
+  visibility: hidden;
+}
 
-  to {
-    opacity: 1;
-  }
+.listeners-active-click,
+.listeners-active-click * {
+  cursor: pointer;
 }
 
 * {
   box-sizing: border-box;
 }
 
-.pngimg {
+.line {
   object-fit: cover;
   position: absolute;
 }
 
+
+
+
 :root {
   --atlantis: #a7bb2e;
+  --atlantis-2: #a6ba2d;
   --black: #000000;
   --black-2: #010101;
   --fern-green: #4d753f;
   --white: #ffffff;
 
-  --font-size-l: 16px;
-  --font-size-m: 15px;
-  --font-size-s: 14px;
-  --font-size-xl: 20px;
+  --font-size-l: 24px;
+  --font-size-m: 16px;
+  --font-size-s: 15px;
+  --font-size-xl: 36px;
   --font-size-xs: 12px;
-  --font-size-xxl: 24px;
-  --font-size-xxxl: 36px;
 
+  --font-family-abhaya_libre_semibold-regular: "Abhaya Libre SemiBold-Regular", Helvetica;
   --font-family-inter: "Inter", Helvetica;
   --font-family-jockey_one: "Jockey One", Helvetica;
   --font-family-krona_one: "Krona One", Helvetica;
@@ -91,10 +94,50 @@
   --font-family-open_sans: "Open Sans", Helvetica;
 }
 
+.inter-normal-black-16px {
+  color: var(--black);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.oleoscript-normal-black-36px {
+  color: var(--black);
+  font-family: var(--font-family-oleo_script);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.kronaone-normal-white-16px {
+  color: var(--white);
+  font-family: var(--font-family-krona_one);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.kronaone-normal-white-24px {
+  color: var(--white);
+  font-family: var(--font-family-krona_one);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.abhayalibresemibold-regular-normal-black-24px {
+  color: var(--black);
+  font-family: var(--font-family-abhaya_libre_semibold-regular);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 400;
+}
+
 .inter-normal-black-15px {
   color: var(--black-2);
   font-family: var(--font-family-inter);
-  font-size: var(--font-size-m);
+  font-size: var(--font-size-s);
   font-style: normal;
   font-weight: 400;
 }
