@@ -1,3 +1,49 @@
+<?php
+
+  require 'function.php';
+
+  if (isset($_POST["masuk"])) {
+  
+    // menangkap data yang dikirim dari form login
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+    
+    // menyeleksi data user dengan username dan password yang sesuai
+    $login = mysqli_query($conn," SELECT * FROM users WHERE username='$username'");
+    // menghitung jumlah data yang ditemukan
+    $cek = mysqli_num_rows($login);
+
+    $data = mysqli_fetch_array($login);
+    
+    // cek apakah username dan password di temukan pada database
+    if($cek > 0){
+      session_start();
+      if (password_verify($password, $data['password'])) {
+        $_SESSION['id']    = $data['id'];
+        $_SESSION['username'] = $username;
+        $_SESSION['password'] = $data['password'];
+
+        if($data['role']=="admin"){
+          $_SESSION['role'] = "admin";
+
+        }else if($data['role']=="pengguna"){
+          $_SESSION['role'] = "pengguna";
+
+        }
+
+        $_SESSION['login'] = true;
+        $awal = "true";
+        header("location: index.php");
+      }
+    }
+
+    $error=true;
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -275,7 +321,7 @@
                         <div class="rectangle-8"></div>
                     </a>
                     <div class="login-2 login-3">Login</div>
-                    <a href="register.html">
+                    <a href="register.php">
                         <div class="rectangle-9"></div>
                     </a>
                     <div class="sign-up">Sign Up</div>
@@ -288,16 +334,17 @@
                     <img class="pngimg-4 pngimg" src="img/pngimg-1.png" alt="pngimg 4" />
                     <img class="pngimg-5 pngimg" src="img/pngimg-1.png" alt="pngimg 5" />
 
-                    <form action="login-process.php" method="post">
+                    <form action="" method="post">
                         <label for="username" class="username">Username</label>
                         <input type="text" name="username" id="username" class="rectangle-2" />
                         <label for="password" name="password" id="password" class="password">Password</label>
                         <input type="password" name="password" id="password" class="rectangle-10" />
 
-                        <input type="submit" class="rectangle-3" value="Login">
+                        <button type="submit" class="rectangle-3" name="masuk">Login</button>
                     </form>
+
                     <div class="belum-punya-akun">Belum punya akun?</div>
-                    <a href="register.html">
+                    <a href="register.php">
                         <div class="daftar">Daftar</div>
                     </a>
                 </div>

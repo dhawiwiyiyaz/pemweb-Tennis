@@ -1,3 +1,31 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['login'])) {
+    header("Location: login.php");
+}
+
+require "function.php";
+
+if (isset($_POST["edit"])) {
+	// cek apakah data berhasil ditambahkan atau tidak
+	if (edit($_POST) > 0) {
+		echo "
+			<script>
+				alert('Berhasil Diubah!');
+				document.location.href = 'index.php';
+			</script>
+		";
+	} else {
+		echo "
+			<script>
+				alert('Tidak Berhasil Diubah!');
+				document.location.href = 'index.php';
+			</script>
+		";
+	}
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -151,55 +179,66 @@
                     <div class="rectangle"></div>
                     <div class="text-wrapper">TenisTopia</div>
                     <div class="div"><a href="logout-process.php">Logout</a></div>
-                    <div class="text-wrapper-2"><a href="profile.html">Profil</a></div>
+                    <div class="text-wrapper-2"><a href="profile.php">Profil</a></div>
                     <img class="element-cfcc" src="img/0fe72abc-cfcc-4e8a-ba01-e39bc3e2b77d-169-2.png" />
                     <div class="rectangle-2">
-                        <h2>Tambah Data Pemain</h2>
+                        <h2>Edit Data Pemain</h2>
 
-                        <form action="edit-player-processing.php" method="post" enctype="multipart/form-data">
+                        <form action="" method="post" enctype="multipart/form-data">
                             <table class="form-table">
+                                <?php
+                                
+                                $id = $_GET['id'];
+
+                                $player = mysqli_query($conn, "SELECT * from pemain where id='$id'");
+                                $hasil= mysqli_fetch_array($player)
+                                ?>
+                                <tr>
+                                <input type="hidden" name="id" value="<?= $id?>"><?= $id?>
+                                </tr>
                                 <tr>
                                     <td><label for="foto">Foto</label></td>
-                                    <td><input type="file" id="foto" name="foto"></td>
+                                    <td><input type="file" id="foto" name="foto" required value="<?= $hasil["foto"]?>"></td>
                                 </tr>
                                 <tr>
                                     <td><label for="nama">Nama</label></td>
-                                    <td><input type="text" id="nama" name="nama" required></td>
+                                    <td><input type="text" id="nama" name="nama" required value="<?= $hasil["nama"]?>"></td>
                                 </tr>
                                 <tr>
                                     <td><label for="jenis_kelamin">Jenis Kelamin</label></td>
                                     <td>
-                                        <select id="jenis_kelamin" name="jenis_kelamin" required>
-                                            <option value="Laki-Laki">Laki-Laki</option>
-                                            <option value="Perempuan">Perempuan</option>
+                                        <select id="jenis_kelamin" name="jenis" required>
+                                            <option value="Laki-Laki" <?php if($hasil['jenis_kelamin']=="Laki-Laki"){ echo "selected"; } ?>>Laki-Laki</option>
+                                            <option value="Perempuan" <?php if($hasil['jenis_kelamin']=="Perempuan"){ echo "selected"; } ?>>Perempuan</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><label for="tanggal_lahir">Tanggal Lahir</label></td>
-                                    <td><input type="date" id="tanggal_lahir" name="tanggal_lahir" required></td>
+                                    <td><input type="date" id="tanggal_lahir" name="tanggal" required value="<?= $hasil["tanggal_lahir"]?>"></td>
                                 </tr>
                                 <tr>
                                     <td><label for="tangan">Tangan</label></td>
                                     <td>
                                         <select id="tangan" name="tangan" required>
-                                            <option value="Kanan">Kanan</option>
-                                            <option value="Kiri">Kiri</option>
+                                            <option value="Kanan" <?php if($hasil['tangan']=="Kanan"){ echo "selected"; } ?>>Kanan</option>
+                                            <option value="Kiri" <?php if($hasil['tangan']=="Kiri"){ echo "selected"; } ?>>Kiri</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><label for="ranking">Ranking</label></td>
-                                    <td><input type="number" id="ranking" name="ranking" required min="1"></td>
+                                    <td><input type="number" id="ranking" name="ranking" required min="1" value="<?= $hasil["ranking"]?>"></td>
                                 </tr>
 
                                 <tr>
                                     <td colspan="2">
-                                        <button type="submit">Tambah Data</button>
+                                        <button type="submit" name="edit">Edit Data</button>
                                     </td>
                                 </tr>
                             </table>
                         </form>
+
                     </div>
                 </div>
             </div>

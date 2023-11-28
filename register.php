@@ -1,3 +1,32 @@
+<?php
+session_start();
+
+if (isset($_SESSION['login'])) {
+    header("Location: index.php");
+}
+
+require "function.php";
+
+if (isset($_POST["daftar"])) {
+	// cek apakah data berhasil ditambahkan atau tidak
+	if (daftar($_POST) > 0) {
+		echo "
+			<script>
+				alert('Akun Berhasil Ditambahkan!');
+				document.location.href = 'login.php';
+			</script>
+		";
+	} else {
+		echo "
+			<script>
+				alert('Akun Tidak Berhasil Ditambahkan!');
+				document.location.href = 'register.php';
+			</script>
+		";
+	}
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -298,7 +327,7 @@
                         <div class="rectangle-1" id="rectangle-1"></div>
                         <a href="#rectangle-1">
                             <div class="rectangle-9">
-                                <a href="login.html">Login</a>
+                                <a href="login.php">Login</a>
                             </div>
                             <div class="rectangle-8">
                                 <a href="#">Sign Up</a>
@@ -310,10 +339,10 @@
                             <h1 class="title">TenisTopia</h1>
                             <div class="buat-akun-baru">Buat Akun Baru</div>
 
-                            <form action="register-process.php" method="post">
+                            <form action="" method="post">
                                 <label for="nama-lengkap" class="nama-lengkap inter-normal-black-15px">Nama
                                     Lengkap</label>
-                                <input type=" text" class="rectangle-2" name="nama-lengkap" id="nama-lengkap">
+                                <input type=" text" class="rectangle-2" name="nama" id="nama-lengkap">
                                 <label for="username" class="username">Username</label>
                                 <input type="text" class="rectangle-4" name="username" id="username">
                                 <label for="password" class="password">Password</label>
@@ -323,8 +352,8 @@
                                 <label for="alamat" class="alamat inter-normal-black-15px">Alamat</label>
                                 <textarea class="rectangle-6" name="alamat" id="alamat"></textarea>
                                 <label for="no-telepon" class="no-telepon inter-normal-black-15px">No.Telepon</label>
-                                <input type="number" class="rectangle-7" name="no-telepon" id="no-telepon">
-                                <input type="submit" class="rectangle-3" value="Daftar">
+                                <input type="number" class="rectangle-7" name="no" id="no-telepon">
+                                <button name="daftar" type="submit" class="rectangle-3">Daftar</button>
                             </form>
 
                     </div>
